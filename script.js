@@ -461,4 +461,92 @@
       window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
     });
   }
+
+  /* ---------- game page: screenshots / video viewer ---------- */
+  const viewer = $('#viewer');
+  if (viewer) {
+    const screen = $('#viewerScreen');
+    const thumbs = $$('.thumb');
+    const count = $('#viewerCount');
+    let idx = 0;
+
+    // thumbnails that got a real image (data-src) show it too
+    thumbs.forEach(t => {
+      if (t.dataset.color) t.style.setProperty('--sc', t.dataset.color);
+      if (t.dataset.src && !$('img', t)) {
+        const im = new Image(); im.src = t.dataset.src; im.alt = ''; im.loading = 'lazy';
+        t.prepend(im);
+      }
+    });
+
+    function show(i, user) {
+      idx = (i + thumbs.length) % thumbs.length;
+      const t = thumbs[idx];
+      thumbs.forEach((b, k) => {
+        b.classList.toggle('on', k === idx);
+        if (k === idx) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
+      });
+      const label = t.dataset.label || '';
+      const video = t.dataset.type === 'video';
+      screen.style.setProperty('--sc', t.dataset.color || 'var(--accent)');
+      screen.style.animation = 'none'; void screen.offsetWidth; screen.style.animation = '';
+      screen.innerHTML = '';
+
+      if (t.dataset.video) {
+        const v = document.createElement('video');
+        v.controls = true; v.autoplay = true; v.muted = true; v.playsInline = true;
+        if (t.dataset.poster) v.poster = t.dataset.poster;
+        v.preload = 'metadata';
+        v.src = t.dataset.video;
+        v.addEventListener('error', () => {
+          const m = document.createElement('div');
+          m.style.cssText = 'position:absolute;inset:0;z-index:2;display:grid;place-items:center;padding:16px;text-align:center;color:#fff;background:rgba(0,0,0,.85);font:600 .9rem/1.5 Poppins,sans-serif';
+          const code = v.error ? v.error.code : '?';
+          m.textContent = 'Video could not be loaded (' + t.dataset.video + ', error ' + code + '). Check the file path/name and that it is H.264 + AAC MP4.';
+          screen.append(m);
+          console.error('Video error', code, v.currentSrc);
+        });
+        screen.append(v);
+        v.play().catch(() => {});
+      } else if (t.dataset.src && !video) {
+        const im = new Image(); im.src = t.dataset.src; im.alt = label; screen.append(im);
+      } else {
+        if (t.dataset.poster) { const im = new Image(); im.src = t.dataset.poster; im.alt = ''; screen.append(im); }
+        else screen.insertAdjacentHTML('beforeend', '<span class="viewer__label"></span>');
+        const lab = $('.viewer__label', screen); if (lab) lab.textContent = label;
+        if (video) {
+          const b = document.createElement('button');
+          b.type = 'button'; b.className = 'viewer__play'; b.setAttribute('aria-label', 'Play video');
+          b.addEventListener('click', () => {
+            if (!t.dataset.embed) return;                 // no video linked yet: nothing to play
+            const u = t.dataset.embed + (t.dataset.embed.includes('?') ? '&' : '?') + 'autoplay=1';
+            screen.innerHTML = '<iframe src="' + u + '" title="' + label + '" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+          });
+          screen.append(b);
+        }
+      }
+      if (count) count.textContent = (idx + 1) + ' / ' + thumbs.length;
+      if (user) t.scrollIntoView({ inline: 'center', block: 'nearest', behavior: reduceMotion ? 'auto' : 'smooth' });
+    }
+
+    thumbs.forEach((t, k) => t.addEventListener('click', () => show(k, true)));
+    const _p = $('.viewer__arrow--prev', viewer); _p && _p.addEventListener('click', () => show(idx - 1, true));
+    const _n = $('.viewer__arrow--next', viewer); _n && _n.addEventListener('click', () => show(idx + 1, true));
+    $('.g-media').addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); show(idx + 1, true); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); show(idx - 1, true); }
+    });
+
+    // swipe the big picture on a phone
+    let gx = 0, gy = 0, gid = null;
+    screen.addEventListener('pointerdown', e => { if (e.target.closest('video')) return; gx = e.clientX; gy = e.clientY; gid = e.pointerId; });
+    screen.addEventListener('pointerup', e => {
+      if (gid !== e.pointerId) return; gid = null;
+      const dx = e.clientX - gx, dy = e.clientY - gy;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) show(idx + (dx < 0 ? 1 : -1), true);
+    });
+    screen.addEventListener('pointercancel', () => { gid = null; });
+
+    show(0);
+  }
 })();

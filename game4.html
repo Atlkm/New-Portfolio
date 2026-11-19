@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f3f0">
+  <title>Sundering Bells — ATLKM</title>
+  <meta name="description" content="Sundering Bells — RPG Game. A project by Athul K M.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.classList.add('js','no-intro');</script>
+</head>
+<body class="game-page" style="--accent:var(--yellow); --s1:var(--green); --s2:var(--orange); --s3:var(--red)">
+
+  <div class="floaters" id="floaters" aria-hidden="true"></div>
+
+  <!-- ============ NAV (same as the home page) ============ -->
+  <header class="nav" id="nav">
+    <a class="nav__logo" href="index.html" aria-label="ATLKM — home">ATLKM<span class="pal dots"><i></i><i></i><i></i><i></i></span></a>
+    <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navList" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav__list" id="navList">
+      <li style="--c:var(--yellow)"><a class="nav__link" href="index.html#home">Home</a></li>
+      <li style="--c:var(--green)"><a class="nav__link" href="index.html#about">About</a></li>
+      <li style="--c:var(--orange)"><a class="nav__link active" href="index.html#games">Games</a></li>
+      <li style="--c:var(--red)"><a class="nav__link" href="index.html#works">Works</a></li>
+      <li style="--c:var(--cyan)"><a class="nav__link" href="index.html#contact">Contact</a></li>
+    </ul>
+  </header>
+
+  <main id="home">
+    <div class="gsec">
+      <svg class="g-deco g-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C12.9 7.4 16.6 11.1 24 12 16.6 12.9 12.9 16.6 12 24 11.1 16.6 7.4 12.9 0 12 7.4 11.1 11.1 7.4 12 0Z"/></svg>
+      <span class="g-deco g-blob" aria-hidden="true"></span>
+      <span class="g-deco g-ring" aria-hidden="true"></span>
+      <span class="g-deco g-tri" aria-hidden="true"></span>
+      <svg class="g-deco g-squig" viewBox="0 0 60 24" aria-hidden="true"><path d="M4 14c4-12 9-12 13 0s9 12 13 0 9-12 13 0 5 8 9 4" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
+
+      <a class="g-back" href="index.html#games"><span aria-hidden="true">&larr;</span> All games</a>
+
+      <div class="g-head reveal">
+        <h1 class="g-title">Risk Bound</h1>
+        <span class="g-tag">Retro Hack & Slash Combat Adventure</span>
+        <div class="pal sq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      </div>
+
+      <div class="g-layout">
+        <div class="g-media reveal">
+          <div class="viewer" id="viewer">
+            <div class="viewer__screen" id="viewerScreen">
+              <video controls autoplay muted playsinline poster="Games/RISK BOUND/1.png">
+                <source src="Games/RISK BOUND/Riskbound.mp4" type="video/mp4">
+              </video>
+            </div>
+            <!-- <button class="viewer__arrow viewer__arrow--prev" type="button" aria-label="Previous">&lsaquo;</button>
+            <button class="viewer__arrow viewer__arrow--next" type="button" aria-label="Next">&rsaquo;</button> -->
+            <span class="viewer__count" id="viewerCount"></span>
+          </div>
+          <div class="thumbs" id="thumbs">
+            <button class="thumb" type="button" aria-label="Play trailer" data-type="video" data-video="Games/RISK BOUND/Riskbound.mp4" data-poster="Games/RISK BOUND/1.png"><video src="Games/RISK BOUND/Riskbound.mp4" preload="metadata" muted playsinline tabindex="-1" aria-hidden="true"></video><span class="thumb__play"></span></button>
+            <button class="thumb" type="button" aria-label="Show Screenshot 1" data-src="Games/RISK BOUND/1.png" data-label="Screenshot 1"><img src="Games/RISK BOUND/1.png" alt="Screenshot 1"></button>
+            <button class="thumb" type="button" aria-label="Show Screenshot 2" data-src="Games/RISK BOUND/2.png" data-label="Screenshot 2"><img src="Games/RISK BOUND/2.png" alt="Screenshot 2"></button>
+            <button class="thumb" type="button" aria-label="Show Screenshot 3" data-src="Games/RISK BOUND/3.png" data-label="Screenshot 3"><img src="Games/RISK BOUND/3.png" alt="Screenshot 3"></button>
+            <button class="thumb" type="button" aria-label="Show Screenshot 4" data-src="Games/RISK BOUND/4.png" data-label="Screenshot 4"><img src="Games/RISK BOUND/4.png" alt="Screenshot 4"></button>
+            <button class="thumb" type="button" aria-label="Show Screenshot 4" data-src="Games/RISK BOUND/5.png" data-label="Screenshot 4"><img src="Games/RISK BOUND/5.png" alt="Screenshot 4"></button>
+          </div>
+        </div>
+
+        <!-- cover + info -->
+        <aside class="g-side reveal">
+          <div class="g-cover"><img src="Game PNG/RB.jpg"></div>
+          <div class="g-body">
+            <p class="g-desc">Riskbound is a retro hack and slash adventure where every fight is a gamble. Time your strikes and master a deep combat system with fluid light and heavy attacks</p>
+            <div class="g-actions">
+              <!-- <a class="open" href="#">Process</a> -->
+              <!-- <a class="open" href="#">Open</a> -->
+            </div>
+            <div class="g-role">
+              <h2>My Role:</h2>
+              <p>• 2d Animator <br>
+              </p>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <nav class="g-pager reveal" aria-label="Other games">
+        <a class="g-pn g-pn--prev" href="game3.html" style="--c:var(--red)"><small>&larr; Previous</small><strong>Supermarket Showdown</strong></a>
+        <a class="g-pn g-pn--next" href="game1.html" style="--c:var(--green)"><small>Next &rarr;</small><strong>Sundering Bells</strong></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; <span id="year">2026</span> Athul K M &middot; Narrative Designer</p>
+    <a class="footer__top" href="#home">Back to top <span class="pal tri" aria-hidden="true"><i></i><i></i><i></i><i></i></span></a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
