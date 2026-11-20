@@ -106,6 +106,8 @@
 
         <div class="art">
           <div class="art__orange" data-depth="14" aria-hidden="true"></div>
+          <!-- Resume: save your PDF next to index.html as Resume.pdf (or change the href) -->
+          <a class="resume" data-depth="14" href="Resume.pdf" target="_blank" rel="noopener" download>Resume</a>
           <div class="art__red" data-depth="-14" aria-hidden="true"></div>
           <div class="art__circle">
             <!-- Your photo: save it next to index.html as photo.jpg (or change the src below) -->
@@ -168,14 +170,14 @@
     </section>
 
     <!-- ============ PERSONAL WORKS (stacked sheets) ============ -->
-    <!-- <section class="section works" id="works">
+    <section class="section works" id="works">
       <div class="sec-head reveal">
         <h2 class="sec-title">#Personal Works</h2>
         <div class="pal tri" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-      </div> -->
+      </div> 
 
       <!-- steel pin artwork, reused by every tag -->
-      <!-- <svg class="pin-defs" width="0" height="0" aria-hidden="true" focusable="false">
+      <svg class="pin-defs" width="0" height="0" aria-hidden="true" focusable="false">
         <defs>
           <radialGradient id="steelHead" cx=".35" cy=".3" r=".85"><stop offset="0" stop-color="#fdfdfe"/><stop offset=".45" stop-color="#cdd3d9"/><stop offset="1" stop-color="#858e98"/></radialGradient>
           <radialGradient id="steelDome" cx=".38" cy=".32" r=".8"><stop offset="0" stop-color="#f3f5f7"/><stop offset="1" stop-color="#9aa3ac"/></radialGradient>
@@ -188,11 +190,11 @@
             <ellipse cx="12.8" cy="9.6" rx="3.2" ry="1.9" transform="rotate(-35 12.8 9.6)" fill="#fff" opacity=".9"/>
           </symbol>
         </defs>
-      </svg> -->
+      </svg> 
 
       <!-- Click a tag or the edge of a sheet behind: it comes to the front and the old front sheet goes to the back -->
       <!-- Put your images inside each <div class="ph"> as <img src="..." alt="...">, and edit the captions / Open links -->
-      <!-- <div class="stack" id="stack" role="group" aria-label="Personal works">
+      <div class="stack" id="stack" role="group" aria-label="Personal works">
         <section class="sheet sheet--yellow" data-key="concept" data-pos="0">
           <button class="tag tag--red" type="button" aria-label="Show Concept Art" aria-current="true" style="--tr:-28deg">
             <svg class="pin" aria-hidden="true"><use href="#pin"/></svg>
@@ -202,10 +204,10 @@
           <div class="sheet__content" id="panel-concept">
             <h3 class="sr-only">Concept Art</h3>
             <div class="grid grid-cards grid-concept">
-              <article class="item"><div class="ph"></div><p class="cap">A calm 3D adventure where PIP explores a magical forest and discovers nature’s secrets</p></article>
-              <article class="item"><div class="ph"></div><p class="cap">VR Puzzle adventure where you guide a tiny warrior and manipulate the world to escape</p></article>
-              <article class="item"><div class="ph"></div><p class="cap">Chem LAB is a fun STEM game where players mix chemicals and learn chemistry through interactive experiments</p></article>
-              <article class="item"><div class="ph"></div><p class="cap">Have a project in mind just want to talk about games?I’d love to hear from you</p></article>
+              <article class="item"><div class="ph"><img src="Game PNG/POSTER/Ghost.png"></div><p class="cap">A calm 3D adventure where PIP explores a magical forest and discovers nature’s secrets</p></article>
+              <article class="item"><div class="ph"><img src="Game PNG/POSTER/Gta6.png"></div><p class="cap">VR Puzzle adventure where you guide a tiny warrior and manipulate the world to escape</p></article>
+              <article class="item"><div class="ph"><img src="Game PNG/POSTER/Rdr2.png"></div><p class="cap">Chem LAB is a fun STEM game where players mix chemicals and learn chemistry through interactive experiments</p></article>
+              <article class="item"><div class="ph"><img src="Game PNG/POSTER/Zelda.png"></div><p class="cap">Have a project in mind just want to talk about games?I’d love to hear from you</p></article>
             </div>
           </div>
         </section>
@@ -218,10 +220,10 @@
           <div class="sheet__content" id="panel-doc">
             <h3 class="sr-only">Documentation</h3>
             <div class="grid grid-cards grid-doc">
-              <article class="item"><div class="ph"></div><p class="cap">Have a project in mind just want to talk about games?I’d love to hear from you</p><a class="open" href="#">Open</a></article>
-              <article class="item"><div class="ph"></div><p class="cap">Have a project in mind just want to talk about games?I’d love to hear from you</p><a class="open" href="#">Open</a></article>
-              <article class="item"><div class="ph"></div><p class="cap">Have a project in mind just want to talk about games?I’d love to hear from you</p><a class="open" href="#">Open</a></article>
-              <article class="item"><div class="ph"></div><p class="cap">Have a project in mind just want to talk about games?I’d love to hear from you</p><a class="open" href="#">Open</a></article>
+              <article class="item"><div class="ph"><img src="Game PNG/POSTER/Ghost.png"></div><p class="cap">Have a project in mind just want to talk about games?I’d love to hear from you</p><a class="open" href="#">Open</a></article>
+              <article class="item"><div class="ph"><img src="Game PNG/POSTER/Gta6.png"></div><p class="cap">Have a project in mind just want to talk about games?I’d love to hear from you</p><a class="open" href="#">Open</a></article>
+              <article class="item"><div class="ph"><img src="Game PNG/POSTER/Rdr2.png"></div><p class="cap">Have a project in mind just want to talk about games?I’d love to hear from you</p><a class="open" href="#">Open</a></article>
+              <article class="item"><div class="ph"><img src="Game PNG/POSTER/Zelda.png"></div><p class="cap">Have a project in mind just want to talk about games?I’d love to hear from you</p><a class="open" href="#">Open</a></article>
             </div>
           </div>
         </section>
@@ -233,28 +235,35 @@
           </button>
           <div class="sheet__content" id="panel-env">
             <h3 class="sr-only">Environment</h3>
-            <div class="grid grid-env"> -->
-              <!-- 6 environment boxes slide slowly by themselves (the 2nd set is a copy for a seamless loop; keep both sets the same) -->
-              <!-- <div class="slider">
+            <div class="grid grid-env"> 
+              <!-- 6 environment boxes: use the arrows, swipe, or drag. Put your pictures in images/env1.jpg … env6.jpg -->
+              <div class="slider" id="envSlider" tabindex="0" aria-label="Environment gallery, scroll or drag sideways">
                 <div class="slider__track">
-                  <div class="slide"><article class="item"><div class="ph"><h4>#Environment 1</h4></div></article></div><div class="slide"><article class="item"><div class="ph"><h4>#Environment 2</h4></div></article></div><div class="slide"><article class="item"><div class="ph"><h4>#Environment 3</h4></div></article></div><div class="slide"><article class="item"><div class="ph"><h4>#Environment 4</h4></div></article></div><div class="slide"><article class="item"><div class="ph"><h4>#Environment 5</h4></div></article></div><div class="slide"><article class="item"><div class="ph"><h4>#Environment 6</h4></div></article></div>
-                  <div class="slide" aria-hidden="true"><article class="item"><div class="ph"><h4>#Environment 1</h4></div></article></div><div class="slide" aria-hidden="true"><article class="item"><div class="ph"><h4>#Environment 2</h4></div></article></div><div class="slide" aria-hidden="true"><article class="item"><div class="ph"><h4>#Environment 3</h4></div></article></div><div class="slide" aria-hidden="true"><article class="item"><div class="ph"><h4>#Environment 4</h4></div></article></div><div class="slide" aria-hidden="true"><article class="item"><div class="ph"><h4>#Environment 5</h4></div></article></div><div class="slide" aria-hidden="true"><article class="item"><div class="ph"><h4>#Environment 6</h4></div></article></div>
+                  <div class="slide"><article class="item"><div class="ph"><img src="Game PNG/ENVI/Envi1.png" alt="Environment 1" draggable="false"><h4>#Environment 1</h4></div></article></div>
+                  <div class="slide"><article class="item"><div class="ph"><img src="Game PNG/ENVI/Envi2.png" alt="Environment 2" draggable="false"><h4>#Environment 2</h4></div></article></div>
+                  <div class="slide"><article class="item"><div class="ph"><img src="Game PNG/ENVI/Envi3.png" alt="Environment 3" draggable="false"><h4>#Environment 3</h4></div></article></div>
+                  <div class="slide"><article class="item"><div class="ph"><img src="Game PNG/ENVI/Envi4.png" alt="Environment 4" draggable="false"><h4>#Environment 4</h4></div></article></div>
+                  <div class="slide"><article class="item"><div class="ph"><img src="Game PNG/ENVI/Envi5.png" alt="Environment 5" draggable="false"><h4>#Environment 5</h4></div></article></div>
+                  <div class="slide"><article class="item"><div class="ph"><img src="Game PNG/ENVI/Envi6.png" alt="Environment 6" draggable="false"><h4>#Environment 6</h4></div></article></div>
                 </div>
               </div>
+              <button class="slider__btn slider__btn--prev" type="button" aria-label="Previous environments">&lsaquo;</button>
+              <button class="slider__btn slider__btn--next" type="button" aria-label="Next environments">&rsaquo;</button>
+            </div>
             </div>
           </div>
         </section>
-      </div> -->
+      </div> 
 
-      <!-- <div class="stack-nav" aria-label="Choose a section">
+      <div class="stack-nav" aria-label="Choose a section">
         <button class="stack-dot" type="button" data-key="concept" style="--c:var(--yellow)" aria-label="Concept Art"></button>
         <button class="stack-dot" type="button" data-key="doc" style="--c:var(--green)" aria-label="Documentation"></button>
         <button class="stack-dot" type="button" data-key="env" style="--c:var(--orange)" aria-label="Environment"></button>
       </div>
       <p class="stack-hint" aria-hidden="true">&larr; swipe &rarr;</p>
 
-      <div class="colorbar pal reveal works__bar"><i></i><i></i><i></i><i></i></div>
-    </section> -->
+      <!-- <div class="colorbar pal reveal works__bar"><i></i><i></i><i></i><i></i></div> -->
+    </section>
 
     <!-- ============ CONNECT ============ -->
     <section class="section connect" id="contact">
@@ -265,7 +274,7 @@
           <div class="pal sq sq--big" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
         </div>
 
-        <form class="connect__card reveal" id="contactForm" novalidate>
+        <form class="connect__card reveal" id="contactForm" action="https://formsubmit.co/athulashokan03@gmail.com" method="POST">
           <label>Name
             <input type="text" name="name" autocomplete="name" required placeholder="Your name">
           </label>
@@ -275,6 +284,7 @@
           <label>Message
             <textarea name="message" rows="4" required placeholder="Tell me about your game…"></textarea>
           </label>
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
           <button class="btn btn--dark" type="submit" style="--c:var(--yellow)">Send message</button>
           <p class="form__note" id="formNote" role="status" aria-live="polite"></p>
         </form>

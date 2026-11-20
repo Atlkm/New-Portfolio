@@ -423,6 +423,7 @@
     let sx = 0, sy = 0, sid = null, swiped = false;
     stack.addEventListener('pointerdown', e => {
       if (e.pointerType === 'mouse' && e.button !== 0) return;
+      if (e.target.closest('.slider, .slider__btn')) return;      // sliding the environment gallery is not a sheet swipe
       sx = e.clientX; sy = e.clientY; sid = e.pointerId; swiped = false;
     });
     stack.addEventListener('pointerup', e => {
@@ -434,12 +435,64 @@
     stack.addEventListener('pointercancel', () => { sid = null; });
     stack.addEventListener('click', e => { if (swiped) { e.stopPropagation(); e.preventDefault(); swiped = false; } }, true);
     stack.addEventListener('keydown', e => {
+      if (e.target.closest('.slider')) return;                     // arrow keys scroll the gallery instead
       if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
       else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
     });
   }
 
-  /* ---------- contact form (opens the visitor's mail app) ---------- */
+
+  /* ---------- Environment slider: arrows, mouse drag, touch swipe (native), arrow keys ---------- */
+  const envSlider = $('#envSlider');
+  if (envSlider) {
+    const wrap = envSlider.parentElement;
+    const prevBtn = $('.slider__btn--prev', wrap);
+    const nextBtn = $('.slider__btn--next', wrap);
+    const step = () => { const s = $('.slide', envSlider); return s ? s.getBoundingClientRect().width : envSlider.clientWidth; };
+    const move = dir => envSlider.scrollBy({ left: dir * step(), behavior: reduceMotion ? 'auto' : 'smooth' });
+    const edges = () => {
+      const max = envSlider.scrollWidth - envSlider.clientWidth - 2;
+      prevBtn.disabled = envSlider.scrollLeft <= 2;
+      nextBtn.disabled = envSlider.scrollLeft >= max;
+    };
+    prevBtn.addEventListener('click', () => move(-1));
+    nextBtn.addEventListener('click', () => move(1));
+    envSlider.addEventListener('scroll', edges, { passive: true });
+    window.addEventListener('resize', edges);
+    edges();
+    envSlider.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); move(1); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); move(-1); }
+    });
+
+    // mouse drag (touch and pen already scroll natively)
+    let drag = null;
+    envSlider.addEventListener('pointerdown', e => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      drag = { x: e.clientX, left: envSlider.scrollLeft, moved: false };
+    });
+    window.addEventListener('pointermove', e => {
+      if (!drag) return;
+      const dx = e.clientX - drag.x;
+      if (!drag.moved && Math.abs(dx) > 4) { drag.moved = true; envSlider.classList.add('dragging'); }
+      if (drag.moved) envSlider.scrollLeft = drag.left - dx;
+    });
+    const endDrag = () => {
+      if (!drag) return;
+      const was = drag.moved;
+      drag = null;
+      if (was) {
+        const s = step();
+        const target = Math.round(envSlider.scrollLeft / s) * s;      // snap to the nearest box
+        envSlider.classList.remove('dragging');
+        envSlider.scrollTo({ left: target, behavior: reduceMotion ? 'auto' : 'smooth' });
+      }
+    };
+    window.addEventListener('pointerup', endDrag);
+    window.addEventListener('pointercancel', endDrag);
+  }
+
+  /* ---------- contact form (sent straight to your inbox with FormSubmit) ---------- */
   const form = $('#contactForm');
   if (form) {
     const note = $('#formNote');
@@ -455,10 +508,39 @@
       });
       if (!ok) { note.textContent = 'Please fill in every field with a valid email.'; return; }
 
-      const subject = encodeURIComponent('Hello from ' + f.name.value.trim());
-      const body = encodeURIComponent(f.message.value.trim() + '\n\n— ' + f.name.value.trim() + ' (' + f.email.value.trim() + ')');
-      note.textContent = 'Opening your mail app…';
-      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+      const name = f.name.value.trim(), email = f.email.value.trim(), message = f.message.value.trim();
+      const btn = form.querySelector('button[type="submit"]');
+      const mailtoFallback = () => {
+        const subject = encodeURIComponent('Hello from ' + name);
+        const body = encodeURIComponent(message + '\n\n— ' + name + ' (' + email + ')');
+        window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+      };
+
+      btn.disabled = true;
+      note.textContent = 'Sending…';
+      fetch('https://formsubmit.co/ajax/' + encodeURIComponent(CONTACT_EMAIL), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name, email, message,
+          _subject: 'New message from ' + name + ' (portfolio)',
+          _replyto: email,
+          _template: 'table',
+          _captcha: 'false',
+          _honey: f._honey ? f._honey.value : ''
+        })
+      })
+        .then(r => r.json().then(d => ({ ok: r.ok, d })))
+        .then(({ ok, d }) => {
+          if (!ok || String(d.success) === 'false') throw new Error(d.message || 'failed');
+          form.reset();
+          note.textContent = 'Thank you, ' + name + '! Your message has been sent.';
+        })
+        .catch(() => {
+          note.textContent = 'Could not send it directly, opening your mail app instead…';
+          mailtoFallback();
+        })
+        .finally(() => { btn.disabled = false; });
     });
   }
 
